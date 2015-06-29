@@ -73,8 +73,29 @@
                                                     }else if($row["count"] > 0 && ($row['hours'] > 0 || $row['dd'] < $d)){
                                                       echo  "<center>
                                                              <input class='btn btn-default btn-md' type='submit' value='TIME IN' name='punchin'  disabled/>
-                                                              <input class='btn btn-danger btn-md' type='submit' value='TIME OUT' name='punchout'/></center>
+                                                              <a href='#punchout'><button class='btn btn-danger btn-md' type='button'>TIME OUT</button></center>
                                                         ";
+
+                                                        echo '<div id="punchout" class="modalDialog text-center" style="margin-top:-50px">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-header">
+                                                                        
+                                                                    </div>
+
+                                                                    <div class="modal-body">
+                                                                        <p>TIME OUT</p>
+                                                                        <input type="text" class="form-control" name="to" placeholder='.$time.' />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</br>
+                            
+                                                                    </div>
+
+                                                                    <div class="modal-footer">
+                                                                            <button class="btn btn-info" name="punchout" type="submit">TIME OUT!</button>
+                                                                        
+                                                                        <a href=#close><button class="btn btn-default" type="button">BACK</button></a>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>';
                                                     }else if($row["count"] == 0){
                                                       echo  "<input class='btn btn-danger btn-lg' type='submit' value='TIME IN' name='punchin' disabled/>
                                                         <input class='btn btn-default btn-lg' type='submit' value='TIME OUT' name='punchout' disabled/>
@@ -172,7 +193,8 @@
             
             $id = $_SESSION['empID'];
             $choice=$_POST['option'];
-            $db -> timeOut($id,$choice);  
+            $timeout=$_POST['to'];
+            $db -> timeOut($id,$choice,$timeout);  
 
           }
 ?>

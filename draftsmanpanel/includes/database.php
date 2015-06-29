@@ -1036,14 +1036,14 @@ function fetchProjectReport($id){
   }
 
 
-function timeOut($id,$choice){
+function timeOut($id,$choice,$timeout){
     global $dbh;
     date_default_timezone_set('Asia/Manila');
     $date=date('Y-m-d');
     $time=date('G:i A');
     $temp=NULL;
     $query= $dbh->prepare("UPDATE projwork SET `timeOut` =?, `status`=? WHERE `eID`= ? AND `proj_id` = ? AND `timeOut` is NULL");
-    $passval= array($time,$temp,$id,$choice);
+    $passval= array($timeout,$temp,$id,$choice);
  
     
       try{
