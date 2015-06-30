@@ -85,9 +85,9 @@
                             <i class="fa fa-user"></i><b> Employee Type</b></label>
                                         <div class="radio">
                                             <input type="radio"  name="type" value="Draftsman" <?php if(isset($_POST['type']) == 'Draftsman')  echo ' checked="checked"';?> required>
-                                            Draftsman &nbsp;&nbsp;
+                                            Draftsman &nbsp;&nbsp;<!-- 
                                             <input type="radio" name="type" value="Tutorial" <?php if(isset($_POST['type']) == 'Tutorial')  echo ' checked="checked"';?> required>
-                                            Tutor &nbsp;&nbsp;
+                                            Tutor &nbsp;&nbsp; -->
                                             <input type="radio" name="type" value="Admin" <?php if(isset($_POST['type']) == 'Admin')  echo ' checked="checked"';?> required>
                                             Administrator
                                         </div>
