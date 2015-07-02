@@ -1036,7 +1036,7 @@ function fetchProjectReport($id){
   }
 
 
-function timeOut($id,$choice,$timeout){
+function timeOut($id,$choice,$timeout,$date1,$date2){
     global $dbh;
     date_default_timezone_set('Asia/Manila');
     $date=date('Y-m-d');
@@ -1049,8 +1049,8 @@ function timeOut($id,$choice,$timeout){
       try{
         $query->execute($passval);
 
-        $query2= $dbh->prepare("UPDATE projwork SET `hrWork` = (SELECT TIMESTAMPDIFF(minute, timeIn, timeOut)) WHERE `eID`= ? AND `proj_id` = ? AND `id` = (SELECT MAX(id))");
-        $passval2 = array($id,$choice);
+        $query2= $dbh->prepare("UPDATE projwork SET `hrWork` = (SELECT TIMESTAMPDIFF(minute, CONCAT(?,' ',timeIn), CONCAT(?,' ',timeOut))) WHERE `eID`= ? AND `proj_id` = ? AND `id` = (SELECT MAX(id))");
+        $passval2 = array($date1,$date2,$id,$choice);
         $query2 ->execute($passval2);
         $query3 = $dbh -> query("SELECT hrWork as `hw` FROM projwork WHERE id=(SELECT MAX(id) FROM projwork) AND proj_id='$choice' AND eID='$id'");
         while($row = $query3->fetch()){

@@ -42,10 +42,18 @@
 
                                                 
                                                         if(isset($_GET['s'])){
+                                                            $s = $_GET['s'];
+                                                            if($s == 'timeout'){
                                                             echo '<div class="alert alert-success" id="alert" style="visibility: true; display: block; width:90%;">
                                                                 <a href="#" class="close" data-dismiss="alert">&times;</a>
                                                                 <strong>Success!</strong> Time In Project Successful.
                                                             </div>';
+                                                            }else if($s=='error'){
+                                                                echo '<div class="alert alert-danger" id="alert" style="visibility: true; display: block; width:90%;">
+                                                                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                                                <strong>Error!</strong> Invalid time out date.
+                                                            </div>';
+                                                            }
 
                                                         }
                                                         
@@ -84,8 +92,8 @@
 
                                                                     <div class="modal-body">
                                                                         <p>TIME OUT</p>
-                                                                        <input type="text" class="form-control" name="to" placeholder='.$time.' />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</br>
-                            
+                                                                        TIME:<input type="text" class="form-control" name="to" placeholder='.$time.' />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</br>
+                                                                        DATE:<input type="date" class="form-control" name="date2" value='.$date.' />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</br></br>
                                                                     </div>
 
                                                                     <div class="modal-footer">
@@ -190,11 +198,23 @@
 <?php
     global $dbh;
     if(isset($_POST['punchout'])){
-            
+            $date2 = $_POST['date2'];
             $id = $_SESSION['empID'];
-            $choice=$_POST['option'];
+            $choice=$_GET['pid'];
             $timeout=$_POST['to'];
-            $db -> timeOut($id,$choice,$timeout);  
+    
+
+            
+            $query = $dbh->query("SELECT `date` as 'date1' FROM projwork WHERE id=(SELECT MAX(id) FROM projwork) AND proj_id='$choice'");
+            $row = $query->fetch();
+            $date1 = $row['date1'];
+
+            if($date1>$date2){
+                echo "<script>window.location='index2.php?pid=".$choice."&s=error&d1=".$date1."';</script>";
+            }else{    
+                $db -> timeOut($id,$choice,$timeout,$date1,$date2);  
+            }
+           
 
           }
 ?>
