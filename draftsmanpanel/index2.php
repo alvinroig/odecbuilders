@@ -48,10 +48,15 @@
                                                                 <a href="#" class="close" data-dismiss="alert">&times;</a>
                                                                 <strong>Success!</strong> Time In Project Successful.
                                                             </div>';
-                                                            }else if($s=='error'){
+                                                            }else if($s=='errordate'){
                                                                 echo '<div class="alert alert-danger" id="alert" style="visibility: true; display: block; width:90%;">
                                                                 <a href="#" class="close" data-dismiss="alert">&times;</a>
                                                                 <strong>Error!</strong> Invalid time out date.
+                                                            </div>';
+                                                            }else if($s=='errortime'){
+                                                                echo '<div class="alert alert-danger" id="alert" style="visibility: true; display: block; width:90%;">
+                                                                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                                                <strong>Error!</strong> Time out cannot be less than your time in!
                                                             </div>';
                                                             }
 
@@ -92,7 +97,7 @@
 
                                                                     <div class="modal-body">
                                                                         <p>TIME OUT</p>
-                                                                        TIME:<input type="text" class="form-control" name="to" placeholder='.$time.' />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</br>
+                                                                        TIME:<input type="text" class="form-control" name="to" value='.$time.' />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</br>
                                                                         DATE:<input type="date" class="form-control" name="date2" value='.$date.' />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</br></br>
                                                                     </div>
 
@@ -205,12 +210,15 @@
     
 
             
-            $query = $dbh->query("SELECT `date` as 'date1' FROM projwork WHERE id=(SELECT MAX(id) FROM projwork) AND proj_id='$choice'");
+            $query = $dbh->query("SELECT `date` as 'date1', TIMESTAMPDIFF(minute,CONCAT(`date`,' ',timeIn),CONCAT('$date2',' ','$timeout')) as 'total' FROM projwork WHERE id=(SELECT MAX(id) FROM projwork) AND proj_id='$choice'");
             $row = $query->fetch();
             $date1 = $row['date1'];
+            $total = $row['total'];
 
             if($date1>$date2){
-                echo "<script>window.location='index2.php?pid=".$choice."&s=error&d1=".$date1."';</script>";
+                echo "<script>window.location='index2.php?pid=".$choice."&s=errordate&d1=".$date1."';</script>";
+            }elseif($total<0){
+                echo "<script>window.location='index2.php?pid=".$choice."&s=errortime&d1=".$total."';</script>";
             }else{    
                 $db -> timeOut($id,$choice,$timeout,$date1,$date2);  
             }

@@ -195,7 +195,7 @@
             $date2 = $_POST['date2'];
             $pid = $_POST['pid'];
 
-            if($date1 > $date2){
+            /*if($date1 > $date2){
                  echo '<div id="punchin" class="modalDialog text-center" style="margin-top:-50px">
                            <div class="modal-dialog">
                                <div class="modal-header">
@@ -212,8 +212,9 @@
                                </div>
                            </div>
                        </div>';
-            }else{
-            $db -> timeIn($id,$choice,$date1,$date2,$timeIN,$timeOUT,$pid);}
+            }else{*/
+            $db -> timeIn($id,$choice,$date1,$date2,$timeIN,$timeOUT,$pid);
+            //}
 
           }
 ?>
