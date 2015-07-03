@@ -35,7 +35,7 @@ include_once "database.php";
 
                     <div class="modal-body">
                         <p>TIME IN</p>
-                        TIME:<input type="text" class="form-control" name="ti" placeholder='.$time.' />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</br>
+                        TIME:<input type="time" class="form-control" name="ti" value='.$time.'/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</br>
                         DATE:<input type="date" class="form-control" name="date1" value='.$date.' />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</br></br>
                     </div>
 

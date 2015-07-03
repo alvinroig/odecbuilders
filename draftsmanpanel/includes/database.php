@@ -1001,7 +1001,7 @@ function fetchProjectReport($id){
     $query= $dbh->prepare("INSERT INTO projwork VALUES (?,?,?,?,?,?,?,?)");
 
     if($timeIN == NULL || $timeOUT == NULL){
-        $passval = array(null,$id,$choice,$time,null,null,$date1,$temp);
+        $passval = array(null,$id,$choice,$timeIN,null,null,$date1,$temp);
         $temp2=0;
     }else{
         $passval = array(null,$id,$choice,$timeIN,$timeOUT,null,$date1,$temp);

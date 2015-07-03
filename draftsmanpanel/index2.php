@@ -43,7 +43,7 @@
                                                 
                                                         if(isset($_GET['s'])){
                                                             $s = $_GET['s'];
-                                                            if($s == 'timeout'){
+                                                            if($s == 'timein'){
                                                             echo '<div class="alert alert-success" id="alert" style="visibility: true; display: block; width:90%;">
                                                                 <a href="#" class="close" data-dismiss="alert">&times;</a>
                                                                 <strong>Success!</strong> Time In Project Successful.
@@ -97,7 +97,7 @@
 
                                                                     <div class="modal-body">
                                                                         <p>TIME OUT</p>
-                                                                        TIME:<input type="text" class="form-control" name="to" value='.$time.' />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</br>
+                                                                        TIME:<input type="time" class="form-control" name="to" value='.$time.' />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</br>
                                                                         DATE:<input type="date" class="form-control" name="date2" value='.$date.' />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</br></br>
                                                                     </div>
 
