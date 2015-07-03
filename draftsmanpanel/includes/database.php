@@ -999,37 +999,13 @@ function fetchProjectReport($id){
     $time=date('G:i A');
     $temp=1;
     $query= $dbh->prepare("INSERT INTO projwork VALUES (?,?,?,?,?,?,?,?)");
+    $passval = array(null,$id,$choice,$timeIN,null,null,$date1,$temp);
 
-    if($timeIN == NULL || $timeOUT == NULL){
-        $passval = array(null,$id,$choice,$timeIN,null,null,$date1,$temp);
-        $temp2=0;
-    }else{
-        $passval = array(null,$id,$choice,$timeIN,$timeOUT,null,$date1,$temp);
-        $temp2=1;
-    }
       try{
         $query->execute($passval);
         $this->timelineTimeIn($id,$choice,$date1,$time);
-        if($temp2 == 0){
-            echo "<script>window.location='index2.php?s=timein&pid=".$pid."';</script>";
-            die();
-        }else{
-            $query2= $dbh->prepare("UPDATE projwork SET `hrWork` = (SELECT TIMESTAMPDIFF(minute, CONCAT(?,' ',timeIn), CONCAT(?,' ',timeOut))), status = NULL WHERE `eID`= ? AND `proj_id` = ? AND `id` = (SELECT MAX(id))");
-            $passval2 = array($date1,$date2,$id,$choice);
-            $query2->execute($passval2);
-            $query3 = $dbh -> query("SELECT hrWork as `hw` FROM projwork WHERE id=(SELECT MAX(id) FROM projwork) AND proj_id='$choice' AND eID='$id'");
-            $query3 -> execute();
-            while($row = $query3->fetch()){
-                $hw = $row['hw'];
-                $query4 =  $dbh -> prepare("UPDATE project SET totalNumHours=(totalNumHours-(?)) WHERE projectID=?");
-                $passval4 = array($hw,$choice);
-                $query4 -> execute($passval4);
-            }
-            $query9 =  $dbh -> prepare("UPDATE project SET totalNumHours = 0 WHERE totalNumHours < 0");
-            $query9 -> execute();
-            echo "<script>window.location='index.php?s=timein';</script>";
-            die();
-        }
+        echo "<script>window.location='index2.php?s=timein&pid=".$pid."';</script>";
+        die();
       }catch(PDOException $ex){
         die();
       }
@@ -1049,7 +1025,31 @@ function timeOut($id,$choice,$timeout,$date1,$date2){
       try{
         $query->execute($passval);
 
-        $query2= $dbh->prepare("UPDATE projwork SET `hrWork` = (SELECT TIMESTAMPDIFF(minute, CONCAT(?,' ',timeIn), CONCAT(?,' ',timeOut))) WHERE `eID`= ? AND `proj_id` = ? AND `id` = (SELECT MAX(id))");
+        $get_id = $dbh->query("SELECT MAX(id) as `a` FROM projwork WHERE proj_id='$choice'");
+        $row = $get_id->fetch();
+        $last_id = $row['a'];
+
+        $get_hrs = $dbh->query("SELECT TIMESTAMPDIFF(minute, CONCAT('$date1',' ',timeIn), CONCAT('$date2', ' ',timeOut)) as 'h' FROM projwork WHERE id='$last_id' AND proj_id='$choice'");
+        $row2 = $get_hrs->fetch();
+        $hrs = $row2['h'];
+
+        $update_hrs = $dbh->prepare("UPDATE projwork SET hrWork=? WHERE id=?");
+        $passval2 = array($hrs,$last_id);
+        $update_hrs -> execute($passval2);
+
+
+
+        $get_hrwk = $dbh -> query("SELECT hrWork as `hw` FROM projwork WHERE id='$last_id'");
+        $row3 = $get_hrwk->fetch();
+        $hw = $row3['hw'];
+
+        $query3 =  $dbh -> prepare("UPDATE project SET totalNumHours=(totalNumHours-(?)) WHERE projectID=?");
+        $passval3 = array($hw,$choice);
+        $query3 -> execute($passval3);
+        $query9 =  $dbh -> prepare("UPDATE project SET totalNumHours = 0 WHERE totalNumHours < 0");
+        $query9 -> execute();
+        
+        /*$query2= $dbh->prepare("UPDATE projwork SET `hrWork` = (SELECT TIMESTAMPDIFF(minute, CONCAT(?,' ',timeIn), CONCAT(?,' ',timeOut))) WHERE `eID`= ? AND `proj_id` = ? AND `id` = (SELECT MAX(id))");
         $passval2 = array($date1,$date2,$id,$choice);
         $query2 ->execute($passval2);
         $query3 = $dbh -> query("SELECT hrWork as `hw` FROM projwork WHERE id=(SELECT MAX(id) FROM projwork) AND proj_id='$choice' AND eID='$id'");
@@ -1062,8 +1062,8 @@ function timeOut($id,$choice,$timeout,$date1,$date2){
             $query9 -> execute();
         }
         $this->timelineTimeOut($id,$choice,$date,$time);
-
-        echo "<script>window.location='index.php?s=timeout';</script>";
+*/
+        echo "<script>window.location='index.php?s=timeout&hrs=".$hrs."';</script>";
         
         die();
       }catch(PDOException $ex){
