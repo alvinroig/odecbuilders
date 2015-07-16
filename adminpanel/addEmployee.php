@@ -109,7 +109,7 @@
                             <div class="form-inline">
                               <div class="form-group" style="width:50%;">
                                 <label for="firstName">Password</label>
-                                <input type="password" class="form-control" id="password" name="password" value="<?php echo isset($_POST['password']) ? $_POST['password'] : '' ?>" placeholder="Password" pattern="[a-zA-Z0-9].{5,}" required>
+                                <input title="Password must contain at least 6 characters." type="password" class="form-control" id="password" name="password" value="<?php echo isset($_POST['password']) ? $_POST['password'] : '' ?>" placeholder="Password" pattern="[a-zA-Z0-9].{5,}" required>
                               </div>
                               <div class="form-group" style="width:49%;">
                                 <label for="lastName">Confirm Password</label>

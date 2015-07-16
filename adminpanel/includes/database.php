@@ -109,7 +109,7 @@ function checkLogins($users,$passs){
 		function addEmployee($fname, $lname, $contact, $address, $email, $birthdate ,$availabletime ,$pic, $user ,$pass ,$type){
 			global $dbh;
 			try{
-				$query = $dbh -> prepare("INSERT INTO employee(firstName,lastName,contactNum,address,email,bday,availabletime,picture) VALUES (:fname,:lname,:contact,:address,:email,:birthdate, :availabletime, :pic)");
+				$query = $dbh -> prepare("INSERT INTO employee(firstName,lastName,contactNum,address,email,bday,availabletime) VALUES (:fname,:lname,:contact,:address,:email,:birthdate, :availabletime)");
 				$query -> bindParam(':fname',$fname);
 				$query -> bindParam(':lname',$lname);
 				$query -> bindParam(':contact',$contact);
@@ -118,7 +118,7 @@ function checkLogins($users,$passs){
 				$query -> bindParam(':birthdate',$birthdate);
 				$query -> bindParam(':availabletime',$availabletime);
 
-				if( ($_FILES['picture']['error'] > 0) || 
+				/*if( ($_FILES['picture']['error'] > 0) || 
         			($_FILES['picture']['type'] != 'image/jpeg') && ($_FILES['picture']['type'] != 'image/png') && ($_FILES['picture']['type'] != 'image/gif') ||
          			($_FILES['picture']['size'] > 5242880)){
           			$query -> bindParam(':pic',$pic);
@@ -128,11 +128,29 @@ function checkLogins($users,$passs){
 				      $newname = $lname;
 				      $path = '../adminpanel/img/users/'.$newname.'.'.$extension;
 				      $query -> bindParam(':pic',$path);
-				      move_uploaded_file($_FILES['picture']['tmp_name'], $path);		    	}
+				      move_uploaded_file($_FILES['picture']['tmp_name'], $path);		    
+				}*/
 
 				$query -> execute();
 				$empid = $dbh->lastInsertId();
 				$GLOBALS['empid'] = $dbh->lastInsertId();
+
+				$query = $dbh->prepare("UPDATE employee SET picture=:pic WHERE employeeID=:empid");
+				$query -> bindParam(':empid',$empid);
+
+				if( ($_FILES['picture']['error'] > 0) || 
+        			($_FILES['picture']['type'] != 'image/jpeg') && ($_FILES['picture']['type'] != 'image/png') && ($_FILES['picture']['type'] != 'image/gif') ||
+         			($_FILES['picture']['size'] > 5242880)){
+          			$query -> bindParam(':pic',$pic);
+    			}else{
+				      $split = explode('.',$_FILES['picture']['name']);
+				      $extension = $split[1];
+				      $newname = $empid;
+				      $path = '../adminpanel/img/users/'.$newname.'.'.$extension;
+				      $query -> bindParam(':pic',$path);
+				      move_uploaded_file($_FILES['picture']['tmp_name'], $path);
+				  }
+				  $query -> execute();
 
 				$query = $dbh -> prepare("INSERT INTO account(empID,username,password,type) VALUES (:empid, :username, :password, :type)");
 				$query -> bindParam(':empid',$empid);

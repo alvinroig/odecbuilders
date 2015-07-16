@@ -93,38 +93,7 @@
                                 </a>
                             </div>
                         </div><!-- ./col -->
-                        <div class="col-lg-3 col-xs-6">
-                            <!-- small box -->
-                            <div class="small-box bg-green">
-                                <div class="inner">
-                                    <h3>
-                                        <?php
-                                            global $dbh;
-                                            try{
-                                                $query = $dbh->query("SELECT COUNT(*) as `number`
-                                                                    FROM tutorial WHERE status='ongoing'
-                                                                    ");
-                                            $query -> setFetchMode(PDO::FETCH_ASSOC);
-                                            while($row = $query->fetch()){
-                                                echo $row['number'];
-                                            }
-                                            }catch(PDOException $ex){
-                                                echo $ex->getMessage();
-                                            }
-                                        ?>
-                                    </h3>
-                                    <p>
-                                        Classes
-                                    </p>
-                                </div>
-                                <div class="icon">
-                                    <i class="fa fa-book"></i>
-                                </div>
-                                <a href="listOfClasses.php" class="small-box-footer">
-                                    More info <i class="fa fa-arrow-circle-right"></i>
-                                </a>
-                            </div>
-                        </div><!-- ./col -->
+                       
                         <div class="col-lg-3 col-xs-6">
                             <!-- small box -->
                             <div class="small-box bg-blue">
@@ -160,31 +129,8 @@
                     </div><!-- /.row -->
                     <div class="row">
                         
-                        <div class="col-xs-6">
-                            <div class="box box-primary">
-                                <div class="box-header">
-                                    <span class="glyphicon glyphicon-book"></span>
-                                    <h3 class="box-title">&nbsp;List Of Classes</h3>
-                                </div><!-- /.box-header -->
-                                <div class="box-body table-responsive">
-                                    <table id="example1" class="table table-bordered table-striped">
-                                        <thead>
-                                            <tr role="row">
-                                                <th colspan="1" rowspan="1"><i class="fa fa-male"></i> Student Name</th>
-                                                <th colspan="1" rowspan="1"><i class="fa fa-book"></i> Class Name</th>
-                                                <th colspan="1" rowspan="1"><i class="fa fa-user"></i> Tutor</th>                         
-                                                <th colspan="1" rowspan="1"><i class="fa fa-clock-o"></i> Remaining Sessions</th>
-                                        </thead>
-                                        <tbody>
-                                            <?php echo $db -> fetchOngoingClasses() ?>
-                                        </tbody>
-                                    </table>
-                                </div><!-- /.box-body -->
-                            </div><!-- /.box -->
-                            
-                        </div>
 
-                        <div class="col-xs-6">
+                        <div class="col-xs-12">
                             <div class="box box-primary">
                                 <div class="box-header">
                                     <span class="glyphicon glyphicon-briefcase"></span>
