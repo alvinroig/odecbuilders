@@ -1,5 +1,5 @@
         <meta charset="UTF-8">
-        <title>OLOL Renders Admin | <?php echo $title;?> </title>
+        <title>ODEC Builders | <?php echo $title;?> </title>
 
         <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
 

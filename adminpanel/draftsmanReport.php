@@ -2,7 +2,6 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>OLOL Renders Admin | Draftsman Report</title>
         <?php 
             $title = "Draftsman Report";
             $icon = '<i class="fa fa-bar-chart-o"></i>';

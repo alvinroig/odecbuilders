@@ -55,7 +55,7 @@
                                     <img src="<?php echo $img;?>" class="img-circle" alt="User Image" />
                                     <p>
                                         <?php echo $row['f'].' '.$row['l']?>
-                                        <small>OLOL Administrator</small>
+                                        <small>ODEC Administrator</small>
                                     </p>
                                 </li>
                                 <!-- Menu Footer-->

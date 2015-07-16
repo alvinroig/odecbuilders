@@ -2,7 +2,6 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>OLOL Renders Admin | Content Management</title>
         <?php 
             $title = "Content Management";
             $icon = '<i class="fa fa-edit"></i>';

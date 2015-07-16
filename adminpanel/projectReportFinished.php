@@ -3,7 +3,6 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>OLOL Renders Admin | Project Report</title>
 
         <?php 
             $title = "Project Report";
