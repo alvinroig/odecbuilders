@@ -145,15 +145,10 @@
                                     <input type="hidden" name="pic" value="<?php echo $pic ?>" />
                                     <i class="fa fa-camera"></i><b> Profile Picture</b></label>
                                     <input data-label="Upload" class="demo" value="<?php echo $pic ?>" type="file" name="picture" id="picture" />
-                                    <i class="fa fa-user"></i><b> Employee Type</b></label>
-                                                <div class="radio">
-                                                    <input type="radio"  name="type" value="Draftsman" required <?php echo ($type== 'Draftsman') ?  "checked" : "" ;  ?> />
-                                                    Draftsman &nbsp;&nbsp;
-                                                    <input type="radio" name="type" value="Tutorial" required <?php echo ($type== 'Tutorial') ?  "checked" : "" ;  ?> />
-                                                    Tutor &nbsp;&nbsp;
-                                                    <input type="radio" name="type" value="Draftsman/Tutor" required <?php echo ($type== 'Draftsman/Tutor') ?  "checked" : "" ;  ?> />
-                                                    Draftsman/Tutor
-                                                </div>
+                                                    <!--employee type-->
+                                                    <input type="hidden"  name="type" value="Draftsman"/>
+                    
+                                                  
                                             <i class="fa fa-pencil"></i><b> Skills</b></label><br>
                                                                         
                                                     <select id="select" multiple="multiple" name="skill[]" required>
