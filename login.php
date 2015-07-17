@@ -48,7 +48,7 @@
 <html class="bg-black">
     <head>
         <meta charset="UTF-8">
-        <title>OLOL | Log in</title>
+        <title>ODEC Builders | Log in</title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
         <!-- bootstrap 3.0.2 -->
         <link href="adminpanel/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -68,7 +68,7 @@
     <body class="bg-black">
 
         <div class="form-box" id="login-box">
-            <div class="header">User Login</div>
+            <div class="header"><img src="images/logo2.png" width="150" height="50"><br><b>User Login</b></div>
             <form action="" method="post">
                 <div class="body bg-gray">
                     <div class="form-group">
